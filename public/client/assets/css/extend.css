@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
+.brand-text {
+    font-family: 'Orbitron', sans-serif ;
+}
+
+.user-dropdown-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+.inline-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+.nav-username {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* Icon Sizing */
+.icon-16 {
+    width: 16px;
+    height: 16px;
+}
+.icon-24 {
+    width: 24px;
+    height: 24px;
+}
+.icon-32 {
+    width: 32px;
+    height: 32px;
+}
+.icon-48 {
+    width: 48px;
+    height: 48px;
+}
+.icon-64 {
+    width: 64px;
+    height: 64px;
+}
+.icon-128 {
+    width: 128px;
+    height: 128px;
+}
+
+.login-form-group{
+    max-width: 90%;
+}
+
+.light-panel {
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    background-color: rgba(238, 238, 238, 0.295);
+    border-radius: 0.25rem;
+}
+
+table.discussion-stream {
+    width: 100%;
+}
+td {
+    padding: 15px;
+}
+
+td.counters {
+}
+td.discussion-title {
+    width: 80%;
+}
+@media only screen and (min-width: 1000px) {
+    .views {
+        margin-left: 1rem;
+    }
+  }
+
+.mute {
+    color: rgba(68, 68, 68, 0.582) !important;
+}
+
+.counter {
+    font-weight: 500;
+    font-size: 1.015625rem;
+    display: block;
+}
+
+a.discussion-link {
+    font-size: .9rem;
+}
+
+.thread-container {
+    font-size: .9rem;
+}
+.reply-container {
+    font-size: .9rem;
+}
+
+table.user-info-table {
+    width: 100%;
+    background-color: rgba(204, 204, 204, 0.185);
+    font-weight: 500;
+}
+
+td.uil {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    padding-left: 50px;
+}
+td.uid {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    padding-right: 50px;
+}
+
+a.author-username {
+    color: #444;
+    font-size: 1rem;
+    font-weight: 500;
+}
