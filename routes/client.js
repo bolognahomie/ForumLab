@@ -29,6 +29,17 @@ router.post('/authenticate/login', (req, res) => ForumLab.users.authenticate.log
         console.log('Server error')
     }
 }))
+router.post('/authenticate/register', (req, res) => ForumLab.users.authenticate.register(req, res, result => {
+    switch(result.result){
+        case true:
+            // Registration successful
+            res.redirect(`/authenticate?success=${result.reason}`)
+        break
+        case false:
+            res.redirect(`/authenticate?failed=${result.reason}`)
+        break
+    }
+}))
 router.get('/authenticate/logout', (req, res) => ForumLab.users.authenticate.logout(req, res, () => {
     res.redirect('/authenticate')
 }))
