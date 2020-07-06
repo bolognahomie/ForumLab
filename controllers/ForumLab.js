@@ -85,13 +85,25 @@ const ForumLab = {
             }
         },
         findById(req, res, id, cb) {
-
+            User.findById(id)
+                .then(result => {
+                    cb(result)
+                })
+                .catch(e => console.log(e))
         },
         findByUsername(req, res, username, cb) {
-
+            User.findOne({username_lower: username.toLowerCase()})
+                .then(result => {
+                    cb(result)
+                })
+                .catch(e => console.log(e))
         },
         findAll(req, res, cb) {
-
+            User.find()
+                .then(result => {
+                    cb(result)
+                })
+                .catch(e => console.log(e))
         }
     }
 }
