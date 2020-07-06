@@ -39,9 +39,6 @@ const AdminForums = props => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-md-4">
-                                    <PackUploader/>
-                                </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="newforum">
@@ -74,16 +71,7 @@ const AdminForums = props => {
                                                 <small class="form-text text-muted">This is the icon associated with the forum. It will display next to the menu name on the navigation menu, and next to the header name at the top of the forum's page.</small>
                                                 <small class="form-text text-muted">You can choose an icon from one of the icon packs distributed with ForumLab, or you can upload your own pack. To upload a pack, add a new folder in "/assets/images/icon-packs/" with the name of your pack, then in that folder upload any .svg icons you want associated in that pack.</small>
                                                 <hr class="my-4" />
-                                                <div class="form-group">
-                                                    <h6 class="card-subtitle mb-2 text-muted">Choose an Icon Pack</h6>
-                                                    <select class="form-control" id="iconPackSelect">
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                    </select>
-                                                </div>
+                                                <IconSelector packs={props.packs} id="f" />
                                             </div>
                                         </div>
                                     </div>
@@ -117,7 +105,7 @@ const AdminForums = props => {
                                                 <small class="form-text text-muted">This is the icon associated with the category. It will display next to the menu name on the navigation menu.</small>
                                                 <small class="form-text text-muted">You can choose an icon from one of the icon packs distributed with ForumLab, or you can upload your own pack. To upload a pack, add a new folder in "/assets/images/icon-packs/" with the name of your pack, then in that folder upload any .svg icons you want associated in that pack.</small>
                                                 <hr class="my-4" />
-                                                <IconSelector/>
+                                                <IconSelector packs={props.packs} id="c" />
                                             </div>
                                         </div>
                                     </div>
@@ -129,7 +117,9 @@ const AdminForums = props => {
                         </div>
                     </div>
                 </div>
+                <PackUploader/>
             </div>
+
         </Admin >
     )
 }

@@ -31,8 +31,7 @@ router.get('/forums', (req, res) => ForumLab.user(req, res, user => {
     if (user.loggedIn === true) {
         // Check if user is admin
         if (user.info.usergroups.includes(0)) {
-                ForumLab.assets.iconPacks(req, res, packs => {
-                    console.log(packs)
+                ForumLab.assets.iconPacks(packs => {
                     res.render('admin-forums', { user, packs })
                 })
         } else {
@@ -49,6 +48,11 @@ router.get('/forums', (req, res) => ForumLab.user(req, res, user => {
 //     console.log(req.files.packzip)
 // })
 router.post('/upload/icon-pack', (req, res) => ForumLab.upload.iconPack(req, res))
-
+router.post('/new/forum', (req, res) => ForumLab.forums.new(req, res, newForum => {
+    res.redirect('/admin/forums')
+}))
+router.post('/new/category', (req, res) => ForumLab.forums.categories.new(req, res, newCat => {
+    res.redirect('/admin/forums')
+}))
 
 module.exports = router

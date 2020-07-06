@@ -78,3 +78,10 @@
   background-color: #f5f5f5 !important;
   font-weight: 500;
 }
+
+.icon-sel {
+  transition: all .2s ease-in-out;
+}
+.icon-sel:hover {
+  transform: scale(1.5);
+}

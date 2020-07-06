@@ -1,5 +1,7 @@
 const User = require('../models/User.js')
 const IconPack = require('../models/IconPack.js')
+const Forum = require('../models/Forum.js')
+const Category = require('../models/Category.js')
 const fs = require('fs')
 const { join } = require('path')
 const moment = require('moment')
@@ -113,7 +115,7 @@ const ForumLab = {
         }
     },
     assets: {
-        iconPacks(req, res, cb) {
+        iconPacks(cb) {
             IconPack.find()
                 .then(packs => {
                     cb(packs)
@@ -145,6 +147,53 @@ const ForumLab = {
                         })
                     });
             })
+        }
+    },
+    forums: {
+        structure: {
+            raw(req, res, cb){
+                let returnJson = {ids: []}
+                Forum.find()
+                    .then(forums => {
+                        returnJson.forums = forums
+                        forums.forEach(forum => {
+                            returnJson.ids.push(forum._id)
+                        })
+                        Category.find()
+                            .then(cats => {
+                                returnJson.cats = cats
+                                cats.forEach(cat => {
+                                    returnJson.ids.push(cat._id)
+                                })
+                                cb(returnJson)
+                            })
+                            .catch(e => console.error(e))
+                    })
+                    .catch(e => console.error(e))
+            }
+        },
+        categories: {
+            new(req, res, cb) {
+                Category.create({
+                    menuName: req.body.menuname,
+                    icon: req.body.icon
+                })
+                    .then(newCat => {
+                        cb(newCat)
+                    })
+                    .catch(e => console.error(e))
+            }
+        },
+        new(req, res, cb) {
+            Forum.create({
+                menuName: req.body.menuname,
+                headerName: req.body.headername,
+                icon: req.body.icon
+            })
+                .then(newForum => {
+                    cb(newForum)
+                })
+                .catch(e => console.error(e))
         }
     }
 }
