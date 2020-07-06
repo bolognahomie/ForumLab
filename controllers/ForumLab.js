@@ -1,6 +1,12 @@
 const User = require('../models/User.js')
+const IconPack = require('../models/IconPack.js')
+const fs = require('fs')
+const { join } = require('path')
 const moment = require('moment')
 const md5 = require('md5')
+const unzip = require('node-unzip-2')
+
+
 
 const ForumLab = {
     user(req, res, cb) {
@@ -33,7 +39,7 @@ const ForumLab = {
                                 // Username is available, check email
                                 User.findOne({ email: req.body.email })
                                     .then(result2 => {
-                                        if (result2==null){
+                                        if (result2 == null) {
                                             // Email available, register user
                                             User.create({
                                                 username: req.body.username,
@@ -44,24 +50,24 @@ const ForumLab = {
                                                 updated: moment().unix()
                                             })
                                                 .then(newUser => {
-                                                    cb({result: true, reason: 'Registration successful! You may now login.'})
+                                                    cb({ result: true, reason: 'Registration successful! You may now login.' })
                                                 })
                                                 .catch(e => console.log(e))
-                                        }else{
+                                        } else {
                                             // Email is taken
-                                            cb({result: false, reason: 'Email is already registered.'})
+                                            cb({ result: false, reason: 'Email is already registered.' })
                                         }
                                     })
                                     .catch(e => console.log(e))
                             } else {
                                 // Username is taken
-                                cb({result: false, reason: 'Username is not available.'})
+                                cb({ result: false, reason: 'Username is not available.' })
                             }
                         })
                         .catch(e => console.log(e))
                 } else {
                     // passowrds do not match
-                    cb({result: false, reason: 'Passwords do not match.'})
+                    cb({ result: false, reason: 'Passwords do not match.' })
                 }
             },
             login(req, res, cb) {
@@ -92,7 +98,7 @@ const ForumLab = {
                 .catch(e => console.log(e))
         },
         findByUsername(req, res, username, cb) {
-            User.findOne({username_lower: username.toLowerCase()})
+            User.findOne({ username_lower: username.toLowerCase() })
                 .then(result => {
                     cb(result)
                 })
@@ -104,6 +110,41 @@ const ForumLab = {
                     cb(result)
                 })
                 .catch(e => console.log(e))
+        }
+    },
+    assets: {
+        iconPacks(req, res, cb) {
+            IconPack.find()
+                .then(packs => {
+                    cb(packs)
+                })
+                .catch(e => console.log(e))
+        }
+    },
+    upload: {
+        iconPack(req, res) {
+            let newPackZip = req.files.packzip;
+            let newPackName = req.files.packzip.name.split(".").shift()
+
+            let zipPath = join(__dirname, `../public/client/assets/images/icons/packs/${newPackZip.name}`)
+            let folderPath = join(__dirname, `../public/client/assets/images/icons/packs/${newPackName}`)
+
+            newPackZip.mv(join(__dirname, `../public/client/assets/images/icons/packs/${newPackZip.name}`), function (err) {
+                if (err)
+                    return res.status(500).send(err);
+                fs.createReadStream(zipPath)
+                    .pipe(unzip.Extract({ path: folderPath }))
+                    .on('close', () => {
+                        var iconArray = fs.readdirSync(folderPath)
+                        fs.unlink(zipPath, () => {
+                            IconPack.create({ name: newPackName, icons: iconArray.map(icon => `${newPackName}/${icon}`) })
+                                .then(newPack => {
+                                    res.redirect('/admin/forums')
+                                })
+                                .catch(e => console.error(e))
+                        })
+                    });
+            })
         }
     }
 }

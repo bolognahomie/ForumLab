@@ -20,6 +20,7 @@ const Admin = props => {
                 <script src="assets/js/popper.js"></script>
                 <script src="assets/js/bootstrap.js"></script>
                 <script src="assets/js/nest.js"></script>
+                <script src="assets/js/helper.js"></script>
             </body>
         </html>
     )

@@ -12,7 +12,7 @@ const ThreadList = require('./components/thread-list.jsx')
 const Home = props => {
     return (
         <Default>
-            <Navbar fl={props.fl} />
+            <Navbar user={props.user}/>
             <div class="main">
                 <div class="container">
                     <div class="row mt-5">

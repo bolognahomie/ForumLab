@@ -15,7 +15,11 @@ router.use(cookieSession({
 
 // User Authentication
 router.get('/authenticate', (req, res) => ForumLab.user(req, res, user => {
-    res.render('auth', { user })
+    if (user.loggedIn===true){
+        res.redirect('/')
+    } else {
+        res.render('auth', { user })
+    }
 }))
 router.post('/authenticate/login', (req, res) => ForumLab.users.authenticate.login(req, res, result => {
     if (result.loggedIn === false) {
@@ -42,6 +46,12 @@ router.post('/authenticate/register', (req, res) => ForumLab.users.authenticate.
 }))
 router.get('/authenticate/logout', (req, res) => ForumLab.users.authenticate.logout(req, res, () => {
     res.redirect('/authenticate')
+}))
+
+
+// Navigation
+router.get('/', (req, res) => ForumLab.user(req, res, user => {
+    res.render('home', { user })
 }))
 
 
